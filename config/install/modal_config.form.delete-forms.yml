@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: delete-forms
+label: 'Delete forms'
+config_key: RouteName
+config_value: .delete

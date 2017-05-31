@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * Allows users to manage customizable lists of shortcut links.
+ */
+
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\modal_config\Entity\ModalConfig;
+use Drupal\modal_config\ModalConfigInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Component\Serialization\Json;
+
+/**
+ * Implements hook_help().
+ */
+function modal_config_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.shortcut':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Shortcut module allows users to create sets of <em>shortcut</em> links to commonly-visited pages of the site. Shortcuts are contained within <em>sets</em>. Each user with <em>Select any shortcut set</em> permission can select a shortcut set created by anyone at the site. For more information, see the <a href=":shortcut">online documentation for the Shortcut module</a>.', [':shortcut' => 'https://www.drupal.org/documentation/modules/shortcut']) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl><dt>' . t('Administering shortcuts') . '</dt>';
+      $output .= '<dd>' . t('Users with the <em>Administer shortcuts</em> permission can manage shortcut sets and edit the shortcuts within sets from the <a href=":shortcuts">Shortcuts administration page</a>.', [':shortcuts' => \Drupal::url('entity.modal_config.collection')]) . '</dd>';
+      $output .= '<dt>' . t('Choosing shortcut sets') . '</dt>';
+      $output .= '<dd>' . t('Users with permission to switch shortcut sets can choose a shortcut set to use from the Shortcuts tab of their user account page.') . '</dd>';
+      $output .= '<dt>' . t('Adding and removing shortcuts') . '</dt>';
+      $output .= '<dd>' . t('The Shortcut module creates an add/remove link for each page on your site; the link lets you add or remove the current page from the currently-enabled set of shortcuts (if your theme displays it and you have permission to edit your shortcut set). The core Seven administration theme displays this link next to the page title, as a grey or yellow star. If you click on the grey star, you will add that page to your preferred set of shortcuts. If the page is already part of your shortcut set, the link will be a yellow star, and will allow you to remove the current page from your shortcut set.') . '</dd>';
+      $output .= '<dt>' . t('Displaying shortcuts') . '</dt>';
+      $output .= '<dd>' . t('You can display your shortcuts by enabling the <em>Shortcuts</em> block on the <a href=":blocks">Blocks administration page</a>. Certain administrative modules also display your shortcuts; for example, the core <a href=":toolbar-help">Toolbar module</a> provides a corresponding menu item.', [':blocks' => (\Drupal::moduleHandler()->moduleExists('block')) ? \Drupal::url('block.admin_display') : '#', ':toolbar-help' => (\Drupal::moduleHandler()->moduleExists('toolbar')) ? \Drupal::url('help.page', ['name' => 'toolbar']) : '#']) . '</dd>';
+      $output .= '</dl>';
+      return $output;
+
+    case 'entity.modal_config.collection':
+    case 'shortcut.set_add':
+    case 'entity.modal_config.edit_form':
+      $user = \Drupal::currentUser();
+      if ($user->hasPermission('access shortcuts') && $user->hasPermission('switch shortcut sets')) {
+        $output = '<p>' . t('Define which shortcut set you are using on the <a href=":shortcut-link">Shortcuts tab</a> of your account page.', [':shortcut-link' => \Drupal::url('shortcut.set_switch', ['user' => $user->id()])]) . '</p>';
+        return $output;
+      }
+  }
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function modal_config_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  $modal_configs = \Drupal::entityTypeManager()->getStorage('modal_config')->loadMultiple();
+  foreach ($modal_configs as $modal_config) {
+    if ($modal_config->get('config_key') == 'RouteName') {
+      foreach ($operations as &$operation) {
+        /** @var Url $url */
+        $url = $operation['url'];
+        if (strpos($url->getRouteName(), $modal_config->get('config_value')) !== FALSE) {
+          $operation['attributes'] = [
+            'class' => ['use-ajax'],
+            'data-dialog-type' => 'modal',
+            'data-dialog-options' => Json::encode([
+              'width' => 'auto',
+            ]),
+          ];
+          // Allow links to use modals.
+          $operation['#attached'] = [
+            'library' => ['core/drupal.ajax'],
+          ];
+        }
+      }
+    }
+  }
+
+}
