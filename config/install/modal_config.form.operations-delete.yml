@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: delete-forms
-label: 'Delete forms'
+id: operations-delete
+label: operations.delete
 config_key: RouteName
 config_value: .delete

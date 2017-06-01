@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * Defines the access control handler for the shortcut set entity type.
+ * Defines the access control handler for the modal config entity type.
  *
  * @see \Drupal\modal_config\Entity\ModalConfig
  */

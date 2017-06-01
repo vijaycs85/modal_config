@@ -2,10 +2,8 @@
 
 namespace Drupal\modal_config\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
+use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\modal_config\ModalConfigInterface;
 
 /**
  * Defines the Shortcut set configuration entity.
@@ -32,10 +30,9 @@ use Drupal\modal_config\ModalConfigInterface;
  *     "config_value" = "config_value"
  *   },
  *   links = {
- *     "customize-form" = "/admin/config/user-interface/modal-config/manage/{modal_config}/customize",
  *     "delete-form" = "/admin/config/user-interface/modal-config/manage/{modal_config}/delete",
  *     "edit-form" = "/admin/config/user-interface/modal-config/manage/{modal_config}",
- *     "collection" = "/admin/config/user-interface/shortcut",
+ *     "collection" = "/admin/config/user-interface/modal-config",
  *   },
  *   config_export = {
  *     "id",
@@ -45,7 +42,7 @@ use Drupal\modal_config\ModalConfigInterface;
  *   }
  * )
  */
-class ModalConfig extends ConfigEntityBundleBase implements ConfigEntityInterface {
+class ModalConfig extends ConfigEntityBase implements ConfigEntityInterface {
 
   /**
    * The machine name for the configuration entity.
@@ -60,5 +57,20 @@ class ModalConfig extends ConfigEntityBundleBase implements ConfigEntityInterfac
    * @var string
    */
   protected $label;
+
+
+  /**
+   * Provides configuration key of modal config.
+   */
+  public function configKey() {
+    return $this->get('config_key');
+  }
+
+  /**
+   * Provides configuration value of modal config.
+   */
+  public function configValue() {
+    return $this->get('config_value');
+  }
 
 }
