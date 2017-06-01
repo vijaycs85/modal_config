@@ -6,7 +6,7 @@ use Drupal\Core\Entity\BundleEntityFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form handler for the shortcut set entity edit forms.
+ * Form handler for the modal config entity edit forms.
  */
 class ModalConfigForm extends BundleEntityFormBase {
 
@@ -16,6 +16,7 @@ class ModalConfigForm extends BundleEntityFormBase {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
+    /** @var \Drupal\modal_config\Entity\ModalConfig $entity */
     $entity = $this->entity;
     $form['label'] = [
       '#type' => 'textfield',
@@ -44,12 +45,14 @@ class ModalConfigForm extends BundleEntityFormBase {
       '#options' => [
         'RouteName' => 'Route name',
       ],
+      '#default_value' => $entity->ConfigKey(),
     ];
     $form['config_value'] = [
       '#type' => 'textfield',
       '#title' => t('Value'),
       '#description' => t('Configuration value'),
       '#required' => TRUE,
+      '#default_value' => $entity->ConfigValue(),
     ];
 
     $form['actions']['submit']['#value'] = t('Create new configuration');
@@ -66,12 +69,12 @@ class ModalConfigForm extends BundleEntityFormBase {
     $entity->save();
 
     if ($is_new) {
-      drupal_set_message(t('The %set_name shortcut set has been created. You can edit it from this page.', ['%set_name' => $entity->label()]));
+      drupal_set_message(t('The %set_name modal configuration has been created.', ['%set_name' => $entity->label()]));
     }
     else {
-      drupal_set_message(t('Updated set name to %set-name.', ['%set-name' => $entity->label()]));
+      drupal_set_message(t('Updated modal configuration name to %set-name.', ['%set-name' => $entity->label()]));
     }
-    $form_state->setRedirectUrl($this->entity->urlInfo('customize-form'));
+    $form_state->setRedirectUrl($this->entity->urlInfo('collection'));
   }
 
 }

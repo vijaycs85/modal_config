@@ -1,7 +1,6 @@
 name: Modal Configuration
 type: module
 description: 'Allows users to manage modal configuration.'
-package: Core
 version: VERSION
 core: 8.x
 configure: entity.modal_config.collection

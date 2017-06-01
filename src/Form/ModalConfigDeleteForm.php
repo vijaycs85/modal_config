@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;
 
 /**
- * Builds the shortcut set deletion form.
+ * Builds the modal config deletion form.
  */
 class ModalConfigDeleteForm extends EntityDeleteForm {
 
@@ -21,7 +21,7 @@ class ModalConfigDeleteForm extends EntityDeleteForm {
   protected $database;
 
   /**
-   * The shortcut storage.
+   * The modal config storage.
    *
    * @var \Drupal\modal_config\ModalConfigStorage
    */

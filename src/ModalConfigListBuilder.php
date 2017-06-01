@@ -6,7 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Defines a class to build a listing of shortcut set entities.
+ * Defines a class to build a listing of modal config entities.
  *
  * @see \Drupal\modal_config\Entity\ModalConfig
  */
@@ -18,23 +18,6 @@ class ModalConfigListBuilder extends ConfigEntityListBuilder {
   public function buildHeader() {
     $header['name'] = t('Name');
     return $header + parent::buildHeader();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultOperations(EntityInterface $entity) {
-    $operations = parent::getDefaultOperations($entity);
-
-    if (isset($operations['edit'])) {
-      $operations['edit']['title'] = t('Edit shortcut set');
-    }
-
-    $operations['list'] = [
-      'title' => t('List links'),
-      'url' => $entity->urlInfo('customize-form'),
-    ];
-    return $operations;
   }
 
   /**
