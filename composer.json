@@ -18,6 +18,6 @@
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
   "require-dev": {
-    "vijaycs85/drupal-quality-checker": "@dev"
+    "vijaycs85/drupal-quality-checker": "^1.0"
   }
 }
