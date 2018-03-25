@@ -58,7 +58,6 @@ class ModalConfig extends ConfigEntityBase implements ConfigEntityInterface {
    */
   protected $label;
 
-
   /**
    * Provides configuration key of modal config.
    */

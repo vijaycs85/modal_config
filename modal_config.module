@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Component\Serialization\Json;
 
@@ -17,7 +16,7 @@ function modal_config_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.modal_config':
       $output = '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('The Modal Configuration module allows users to create modal configuration'). '</p>';
+      $output .= '<p>' . t('The Modal Configuration module allows users to create modal configuration') . '</p>';
       $output .= '</dl>';
       return $output;
   }
@@ -32,7 +31,7 @@ function modal_config_entity_operation_alter(array &$operations, EntityInterface
   foreach ($modal_configs as $modal_config) {
     if ($modal_config->configKey() == 'RouteName') {
       foreach ($operations as &$operation) {
-        /** @var Url $url */
+        /** @var \Drupal\Core\Url $url */
         $url = $operation['url'];
         if (strpos($url->getRouteName(), $modal_config->configValue()) !== FALSE) {
           $operation['attributes'] = [

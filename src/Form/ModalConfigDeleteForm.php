@@ -3,7 +3,6 @@
 namespace Drupal\modal_config\Form;
 
 use Drupal\Core\Entity\EntityDeleteForm;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\modal_config\ModalConfigStorage;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;

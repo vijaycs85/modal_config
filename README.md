@@ -2,9 +2,12 @@
 
 ## Introduction
 
-Drupal module allows to configure the links in operation drop down to open in modal.
+Drupal module allows to configure the links in operation drop down to open
+in modal.
 
-Drupal 8 core provides a way to open any link to open in a modal across the site. However its used in very few places in core. Some of the core components like views have their own modal setup.
+Drupal 8 core provides a way to open any link to open in a modal across
+the site. However its used in very few places in core. Some of the core
+components like views have their own modal setup.
  
 ## Install
 Download and install using drush/composer/drupal.org as usual.
@@ -19,7 +22,8 @@ Download and install using drush/composer/drupal.org as usual.
 
 4. Save
 
-**Note**: The module comes with default modal configuration that allows to open all route names with `.delete` to open in modal. 
+**Note**: The module comes with default modal configuration that allows
+to open all route names with `.delete` to open in modal.
 
 ## Future
 1. Add more types
@@ -28,9 +32,13 @@ Download and install using drush/composer/drupal.org as usual.
 
 ## Contributors
 
-Feel free to open an [issue](https://github.com/vijaycs85/modal_config/issues/new) or [pull request](https://github.com/vijaycs85/modal_config/pulls) to improve, add new features and bug fixes.
+Feel free to open an
+[issue](https://github.com/vijaycs85/modal_config/issues/new) or
+[pull request](https://github.com/vijaycs85/modal_config/pulls) to improve, add
+new features and bug fixes.
 
 
 ## License
 
-This project is distributed under the terms of the [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+This project is distributed under the terms of the [GNU General Public
+License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
